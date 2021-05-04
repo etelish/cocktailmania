@@ -1,3 +1,20 @@
+
+## Technologies used in this project
+
+* Next.js
+* Github
+* vercel
+
+
+## CS Fullstack project 
+
+
+* project consumes data from a public API. [Cocktaildb](https://www.thecocktaildb.com/api.php)
+
+
+---
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
