@@ -1,7 +1,57 @@
-import '../styles/globals.css'
+import firebase from 'firebase/app';
+import React, { useState, useEffect } from 'react';
+import 'firebase/auth';
+import '../styles/globals.css';
+import { UserProvider } from '../lib/user-context';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+require('dotenv').config();
+
+import Login from './login';
+
+function onAuthStateChange(callback) {
+    return firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            callback({ loggedIn: true });
+            console.log('logged in');
+        } else {
+            callback({ loggedIn: false });
+            console.log('logged out');
+        }
+    });
 }
 
-export default MyApp
+function MyApp({ Component, pageProps }) {
+    const firebaseConfig = {
+        apiKey: process.env.FIREBASE_API_KEY,
+        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+        appId: process.env.FIREBASE_APP_ID,
+    };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    } else {
+        firebase.app(); // if already initialized, use that one
+    }
+
+    const [user, setUser] = useState();
+    useEffect(() => {
+        const unsubscribe = onAuthStateChange(setUser);
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
+    // if (!user.loggedIn) {
+    //     return <Login />;
+    // }
+
+    return (
+        <UserProvider value={user}>
+            <Component {...pageProps} user={user} />
+        </UserProvider>
+    );
+}
+
+export default MyApp;
