@@ -6,8 +6,6 @@ import { UserProvider } from '../lib/user-context';
 
 require('dotenv').config();
 
-import Login from './login';
-
 function onAuthStateChange(callback) {
     return firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -22,13 +20,14 @@ function onAuthStateChange(callback) {
 
 function MyApp({ Component, pageProps }) {
     const firebaseConfig = {
-        apiKey: process.env.FIREBASE_API_KEY,
+        apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
         authDomain: process.env.FIREBASE_AUTH_DOMAIN,
         projectId: process.env.FIREBASE_PROJECT_ID,
         storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
         messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
         appId: process.env.FIREBASE_APP_ID,
     };
+    console.log(firebaseConfig);
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     } else {

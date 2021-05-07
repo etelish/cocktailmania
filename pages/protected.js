@@ -7,7 +7,6 @@ import { UserContext } from '../lib/user-context';
 function PageProtected() {
     const router = useRouter();
     const user = useContext(UserContext);
-    console.log(user);
 
     useEffect(() => {
         if (!user?.loggedIn && user !== undefined) {
