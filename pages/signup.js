@@ -11,7 +11,7 @@ function PageSignUp() {
 
     useEffect(() => {
         if (user?.loggedIn && user !== undefined) {
-            router.push('/protected');
+            router.push('/');
         }
     }, [user]);
 
