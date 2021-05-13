@@ -4,29 +4,23 @@ import 'firebase/auth';
 import { useRouter } from 'next/router';
 
 import Head from 'next/head';
-import Image from 'next/image';
 import { UserContext } from '../lib/user-context';
-import styles from '../styles/Protected.module.css';
+import styles from '../styles/Index.module.css';
 
-function Search({ results }) {
+function Search() {
     const router = useRouter();
     const user = useContext(UserContext);
+    const [value, setValue] = useState();
 
     useEffect(() => {
         if (!user?.loggedIn && user !== undefined) {
             router.push('/login');
-            console.log(`you've been redirected`);
         }
-    }, [user, router]);
+        sessionStorage.setItem('drink', value);
+    }, [user, router, value]);
 
     function handleOnSubmitSearch(e) {
         e.preventDefault();
-
-        const { currentTarget = {} } = e;
-        const fields = Array.from(currentTarget?.elements);
-        const fieldQuery = fields.find((field) => field.name === 'query');
-
-        const value = fieldQuery.value || '';
 
         router.push(`./search?q=${value}`);
     }
@@ -43,9 +37,20 @@ function Search({ results }) {
                 <p className={styles.description}>For the cocktail lovers</p>
 
                 <form className="search" onSubmit={handleOnSubmitSearch}>
-                    <input name="query" type="search" />
+                    <input
+                        name="query"
+                        type="search"
+                        value={value}
+                        onChange={(event) => {
+                            setValue(event.target.value);
+                        }}
+                    />
                     <button type="submit">Search</button>
                 </form>
+
+                <Link href="/random-drink">
+                    <a>Cocktail Roulette </a>
+                </Link>
             </main>
         </div>
     );

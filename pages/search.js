@@ -1,10 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Results.module.css';
+import Link from 'next/link';
+import styles from '../styles/Search.module.css';
 
 export async function getServerSideProps({ query }) {
-    console.log(query);
     const res = await fetch(
         `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query.q}`,
     );
@@ -17,6 +16,7 @@ export async function getServerSideProps({ query }) {
 }
 
 function Results({ results }) {
+    // console.log(results.drinks);
     return (
         <div className={styles.container}>
             <Head>
@@ -37,14 +37,16 @@ function Results({ results }) {
                         const { idDrink, strDrink, strDrinkThumb } = drink;
                         return (
                             <li key={idDrink} className={styles.card}>
-                                <a href="https://nextjs.org/docs">
-                                    <img
-                                        className={styles.image}
-                                        src={strDrinkThumb}
-                                        alt={`${strDrink}`}
-                                    />
-                                    <h2>{strDrink}</h2>
-                                </a>
+                                <img
+                                    className={styles.image}
+                                    src={strDrinkThumb}
+                                    alt={`${strDrink}`}
+                                />
+                                <Link href={`./drink/${idDrink}`}>
+                                    <a>
+                                        <h2>{strDrink}</h2>
+                                    </a>
+                                </Link>
                             </li>
                         );
                     })}

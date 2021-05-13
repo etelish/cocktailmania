@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import React, { useState, useEffect } from 'react';
 import 'firebase/auth';
 import '../styles/globals.css';
+import styles from '../styles/Navbar.module.css';
 import { UserProvider } from '../lib/user-context';
 
 require('dotenv').config();
@@ -18,7 +19,7 @@ function onAuthStateChange(callback) {
     });
 }
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component: Page, pageProps }) {
     const firebaseConfig = {
         apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
         authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -41,13 +42,14 @@ function MyApp({ Component, pageProps }) {
         };
     }, []);
 
-    // if (!user.loggedIn) {
-    //     return <Login />;
-    // }
+    function NavBar() {
+        return <div className={styles.navStyle} />;
+    }
 
     return (
         <UserProvider value={user}>
-            <Component {...pageProps} user={user} />
+            <NavBar />
+            <Page {...pageProps} user={user} />
         </UserProvider>
     );
 }

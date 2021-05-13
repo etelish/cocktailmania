@@ -1,10 +1,11 @@
-import { React, useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import styles from '../../styles/Drink.module.css';
+import styles from '../styles/Drink.module.css';
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps() {
+    // console.log(params);
     const res = await fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${params.id}`,
+        ' https://www.thecocktaildb.com/api/json/v1/1/random.php',
     );
 
     const data = await res.json();
@@ -15,13 +16,8 @@ export async function getServerSideProps({ params }) {
     };
 }
 
-function Drink({ results }) {
-    const [value, setValue] = useState();
-
-    useEffect(() => {
-        setValue(sessionStorage.getItem('drink') || '');
-    }, []);
-
+function RandomDrink({ results }) {
+    // console.log(results);
     const {
         strDrink,
         strDrinkCategory,
@@ -55,11 +51,11 @@ function Drink({ results }) {
                 </div>
             </div>
             <p>
-                <Link href={`/search?q=${value}`}>
-                    <a>Back to results</a>
+                <Link href="/">
+                    <a>Search cocktail</a>
                 </Link>
             </p>
         </div>
     );
 }
-export default Drink;
+export default RandomDrink;
