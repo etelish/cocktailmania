@@ -11,9 +11,9 @@ function PageSignUp() {
 
     useEffect(() => {
         if (user?.loggedIn && user !== undefined) {
-            router.push('/protected');
+            router.push('/');
         }
-    }, [user]);
+    }, [user, router]);
 
     return (
         <div>
@@ -23,12 +23,7 @@ function PageSignUp() {
                     firebase
                         .auth()
                         .createUserWithEmailAndPassword(email, password)
-                        .then((userCredential) => {
-                            // Signed in
-                            console.log(user);
-
-                            // ...
-                        })
+                        .then((userCredential) => {})
                         .catch((error) => {
                             const errorCode = error.code;
                             const errorMessage = error.message;

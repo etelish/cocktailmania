@@ -11,7 +11,7 @@ function PageLogin() {
 
     useEffect(() => {
         if (user?.loggedIn && user !== undefined) {
-            router.push('/protected');
+            router.push('./');
         }
     }, [user]);
 
@@ -36,7 +36,6 @@ function PageLogin() {
                             console.log(errorCode);
                             console.log(errorMessage);
                         });
-                    router.push('/protected');
                 }}>
                 <p>
                     <label htmlFor="email">
