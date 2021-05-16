@@ -1,9 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
 import styles from '../styles/Drink.module.css';
 
 export async function getServerSideProps() {
-    // console.log(params);
     const res = await fetch(
         ' https://www.thecocktaildb.com/api/json/v1/1/random.php',
     );
@@ -50,11 +48,6 @@ function RandomDrink({ results }) {
                     </ul>
                 </div>
             </div>
-            <p>
-                <Link href="/">
-                    <a>Search cocktail</a>
-                </Link>
-            </p>
         </div>
     );
 }

@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import React, { useState, useEffect } from 'react';
 import 'firebase/auth';
 import '../styles/globals.css';
-import styles from '../styles/Navbar.module.css';
+import Layout from '../components/Layout';
 import { UserProvider } from '../lib/user-context';
 
 require('dotenv').config();
@@ -42,14 +42,15 @@ function MyApp({ Component: Page, pageProps }) {
         };
     }, []);
 
-    function NavBar() {
-        return <div className={styles.navStyle} />;
-    }
+    // function NavBar() {
+    //     return <div className={styles.navStyle} />;
+    // }
 
     return (
         <UserProvider value={user}>
-            <NavBar />
-            <Page {...pageProps} user={user} />
+            <Layout>
+                <Page {...pageProps} user={user} />
+            </Layout>
         </UserProvider>
     );
 }
