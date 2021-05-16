@@ -42,10 +42,6 @@ function MyApp({ Component: Page, pageProps }) {
         };
     }, []);
 
-    // function NavBar() {
-    //     return <div className={styles.navStyle} />;
-    // }
-
     return (
         <UserProvider value={user}>
             <Layout>

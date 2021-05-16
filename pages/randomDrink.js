@@ -1,5 +1,9 @@
-import React from 'react';
+import { React, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/Drink.module.css';
+import 'firebase/auth';
+
+import { UserContext } from '../lib/user-context';
 
 export async function getServerSideProps() {
     const res = await fetch(
@@ -15,7 +19,15 @@ export async function getServerSideProps() {
 }
 
 function RandomDrink({ results }) {
-    // console.log(results);
+    const router = useRouter();
+    const user = useContext(UserContext);
+
+    useEffect(() => {
+        if (!user?.loggedIn && user !== undefined) {
+            router.push('/login');
+        }
+    }, [user, router]);
+
     const {
         strDrink,
         strDrinkCategory,
