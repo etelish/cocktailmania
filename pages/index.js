@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
 import 'firebase/auth';
 import { useRouter } from 'next/router';
@@ -33,9 +32,7 @@ function Search() {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>Cocktailmania</h1>
-
                 <p className={styles.description}>For the cocktail lovers</p>
-
                 <form className="search" onSubmit={handleOnSubmitSearch}>
                     <input
                         name="query"
@@ -47,10 +44,6 @@ function Search() {
                     />
                     <button type="submit">Search</button>
                 </form>
-
-                <Link href="/random-drink">
-                    <a>Cocktail Roulette </a>
-                </Link>
             </main>
         </div>
     );

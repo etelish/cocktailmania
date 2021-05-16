@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase';
 import { UserContext } from '../lib/user-context';
+import Link from 'next/link';
 
 function PageLogin() {
     const router = useRouter();
@@ -67,6 +68,9 @@ function PageLogin() {
                 </p>
                 <input type="submit" value="Submit" />
             </form>
+            <Link href="./signup">
+                <a>click here to sign up</a>
+            </Link>
         </div>
     );
 }

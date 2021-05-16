@@ -1,9 +1,11 @@
-import React from 'react';
-import Link from 'next/link';
+import { React, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/Drink.module.css';
+import 'firebase/auth';
+
+import { UserContext } from '../lib/user-context';
 
 export async function getServerSideProps() {
-    // console.log(params);
     const res = await fetch(
         ' https://www.thecocktaildb.com/api/json/v1/1/random.php',
     );
@@ -17,7 +19,15 @@ export async function getServerSideProps() {
 }
 
 function RandomDrink({ results }) {
-    // console.log(results);
+    const router = useRouter();
+    const user = useContext(UserContext);
+
+    useEffect(() => {
+        if (!user?.loggedIn && user !== undefined) {
+            router.push('/login');
+        }
+    }, [user, router]);
+
     const {
         strDrink,
         strDrinkCategory,
@@ -50,11 +60,6 @@ function RandomDrink({ results }) {
                     </ul>
                 </div>
             </div>
-            <p>
-                <Link href="/">
-                    <a>Search cocktail</a>
-                </Link>
-            </p>
         </div>
     );
 }
