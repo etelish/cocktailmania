@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase';
-import { UserContext } from '../lib/user-context';
 import Link from 'next/link';
+
+import { UserContext } from '../lib/user-context';
 
 function PageLogin() {
     const router = useRouter();
@@ -27,8 +28,6 @@ function PageLogin() {
                         .then((userCredential) => {
                             // Signed in
                             const user = userCredential.user;
-                            console.log(user);
-                            // ...
                         })
                         .catch((error) => {
                             const errorCode = error.code;

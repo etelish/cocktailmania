@@ -1,5 +1,7 @@
 import { React, useContext } from 'react';
 import 'firebase/auth';
+import firebase from 'firebase';
+
 import Link from 'next/link';
 import { UserContext } from '../lib/user-context';
 
@@ -36,8 +38,19 @@ function Navbar() {
                             </Link>
                         </li>
 
-                        <li>
-                            <Link href="/index">
+                        <li
+                            onClick={() => {
+                                firebase
+                                    .auth()
+                                    .signOut()
+                                    .then(() => {
+                                        // Sign-out successful.
+                                    })
+                                    .catch((error) => {
+                                        // An error happened.
+                                    });
+                            }}>
+                            <Link href="/">
                                 <a>logout</a>
                             </Link>
                         </li>
