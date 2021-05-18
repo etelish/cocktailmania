@@ -11,7 +11,7 @@ function FaveCocktails() {
     const user = useContext(UserContext);
 
     const db = firebase.firestore();
-    const docRef = db.collection('Cocktails').doc(user.userId);
+    const docRef = db.collection('Cocktails').doc(user?.userId);
 
     useEffect(() => {
         if (!user?.loggedIn && user !== undefined) {
