@@ -10,7 +10,7 @@ require('dotenv').config();
 function onAuthStateChange(callback) {
     return firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            callback({ loggedIn: true });
+            callback({ loggedIn: true, userId: user.uid });
             console.log('logged in');
         } else {
             callback({ loggedIn: false });

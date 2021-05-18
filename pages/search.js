@@ -16,7 +16,6 @@ export async function getServerSideProps({ query }) {
 }
 
 function Results({ results }) {
-    // console.log(results.drinks);
     return (
         <div className={styles.container}>
             <Head>

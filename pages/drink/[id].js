@@ -1,6 +1,9 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import Link from 'next/link';
+import FaveButton from '../../components/FaveButton';
 import styles from '../../styles/Drink.module.css';
+
+import { UserContext } from '../../lib/user-context';
 
 export async function getServerSideProps({ params }) {
     const res = await fetch(
@@ -17,6 +20,7 @@ export async function getServerSideProps({ params }) {
 
 function Drink({ results }) {
     const [value, setValue] = useState();
+    const user = useContext(UserContext);
 
     useEffect(() => {
         setValue(sessionStorage.getItem('drink') || '');
@@ -32,6 +36,7 @@ function Drink({ results }) {
         strDrinkThumb,
         idDrink,
     } = results.drinks[0];
+
     return (
         <div className={styles.container}>
             <main className={styles.main} />
@@ -40,6 +45,7 @@ function Drink({ results }) {
                 <div className={styles.drinkImage}>
                     <img src={strDrinkThumb} alt={strDrink} />
                 </div>
+                <FaveButton cocktailId={idDrink} userId={user?.userId} />
                 <div className={styles.drinkDetails}>
                     <h2>Cocktail Information</h2>
                     <ul>
