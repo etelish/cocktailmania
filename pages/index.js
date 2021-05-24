@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'firebase/auth';
 import { useRouter } from 'next/router';
 
 import Head from 'next/head';
-import { UserContext } from '../lib/user-context';
+import useUser from '../lib/use-user';
 import styles from '../styles/Index.module.css';
 
 function Search() {
     const router = useRouter();
-    const user = useContext(UserContext);
-    const [value, setValue] = useState();
+    const user = useUser();
+    const [value, setValue] = useState('');
 
     useEffect(() => {
         if (!user?.loggedIn && user !== undefined) {

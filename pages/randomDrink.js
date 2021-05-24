@@ -1,9 +1,10 @@
-import { React, useContext, useEffect } from 'react';
+import { React, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import styles from '../styles/Drink.module.css';
 import 'firebase/auth';
 
-import { UserContext } from '../lib/user-context';
+import useUser from '../lib/use-user';
 
 export async function getServerSideProps() {
     const res = await fetch(
@@ -20,7 +21,7 @@ export async function getServerSideProps() {
 
 function RandomDrink({ results }) {
     const router = useRouter();
-    const user = useContext(UserContext);
+    const user = useUser();
 
     useEffect(() => {
         if (!user?.loggedIn && user !== undefined) {
@@ -31,7 +32,7 @@ function RandomDrink({ results }) {
     const {
         strDrink,
         strDrinkCategory,
-        strAlcohiolic,
+        strAlcoholic,
         strGlass,
         strInstructions,
         strIngredient1,
@@ -55,7 +56,7 @@ function RandomDrink({ results }) {
                         </li>
                         <li>
                             <strong>Alcoholic:</strong>
-                            {strAlcohiolic}
+                            {strAlcoholic}
                         </li>
                     </ul>
                 </div>
@@ -63,4 +64,21 @@ function RandomDrink({ results }) {
         </div>
     );
 }
+
+RandomDrink.propTypes = {
+    results: PropTypes.shape({
+        drinks: PropTypes.arrayOf(
+            PropTypes.shape({
+                strDrink: PropTypes.string,
+                strDrinkCategory: PropTypes.string,
+                strAlcoholic: PropTypes.string,
+                strGlass: PropTypes.string,
+                strInstructions: PropTypes.string,
+                strIngredient1: PropTypes.string,
+                strDrinkThumb: PropTypes.string,
+                idDrink: PropTypes.string,
+            }),
+        ),
+    }).isRequired,
+};
 export default RandomDrink;

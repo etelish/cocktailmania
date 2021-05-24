@@ -1,4 +1,5 @@
 import { React } from 'react';
+import PropTypes from 'prop-types';
 import 'firebase/firestore';
 import firebase from 'firebase';
 
@@ -29,5 +30,10 @@ function FaveButton({ userId, cocktailId }) {
         </button>
     );
 }
+
+FaveButton.propTypes = {
+    userId: PropTypes.string,
+    cocktailId: PropTypes.string,
+}.isRequired;
 
 export default FaveButton;
