@@ -1,14 +1,14 @@
-import { React, useContext, useEffect } from 'react';
+import { React, useEffect } from 'react';
 import 'firebase/auth';
 import firebase from 'firebase';
 import 'firebase/firestore';
 import { useRouter } from 'next/router';
 
-import { UserContext } from '../lib/user-context';
+import useUser from '../lib/use-user';
 
 function FaveCocktails() {
     const router = useRouter();
-    const user = useContext(UserContext);
+    const user = useUser();
 
     const db = firebase.firestore();
     const docRef = db.collection('Cocktails').doc(user?.userId);
@@ -29,7 +29,7 @@ function FaveCocktails() {
             .catch((error) => {
                 console.log('Error getting document:', error);
             });
-    }, [user, router]);
+    }, [user, router, docRef]);
 
     return (
         <div>

@@ -1,23 +1,12 @@
 import firebase from 'firebase/app';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import 'firebase/auth';
 import '../styles/globals.css';
 import Layout from '../components/Layout';
-import { UserProvider } from '../lib/user-context';
+import useUser from '../lib/use-user';
 
 require('dotenv').config();
-
-function onAuthStateChange(callback) {
-    return firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            callback({ loggedIn: true, userId: user.uid });
-            console.log('logged in');
-        } else {
-            callback({ loggedIn: false });
-            console.log('logged out');
-        }
-    });
-}
 
 function MyApp({ Component: Page, pageProps }) {
     const firebaseConfig = {
@@ -34,21 +23,16 @@ function MyApp({ Component: Page, pageProps }) {
         firebase.app(); // if already initialized, use that one
     }
 
-    const [user, setUser] = useState();
-    useEffect(() => {
-        const unsubscribe = onAuthStateChange(setUser);
-        return () => {
-            unsubscribe();
-        };
-    }, []);
-
     return (
-        <UserProvider value={user}>
-            <Layout>
-                <Page {...pageProps} user={user} />
-            </Layout>
-        </UserProvider>
+        <Layout>
+            <Page {...pageProps} user={useUser} />
+        </Layout>
     );
 }
 
+MyApp.propTypes = {
+    Component: PropTypes.elementType.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    pageProps: PropTypes.object.isRequired,
+};
 export default MyApp;

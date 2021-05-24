@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Search.module.css';
@@ -54,4 +55,22 @@ function Results({ results }) {
         </div>
     );
 }
+
+Results.propTypes = {
+    results: PropTypes.shape({
+        drinks: PropTypes.arrayOf(
+            PropTypes.shape({
+                strDrink: PropTypes.string,
+                strDrinkCategory: PropTypes.string,
+                strAlcoholic: PropTypes.string,
+                strGlass: PropTypes.string,
+                strInstructions: PropTypes.string,
+                strIngredient1: PropTypes.string,
+                strDrinkThumb: PropTypes.string,
+                idDrink: PropTypes.string,
+            }),
+        ),
+    }).isRequired,
+};
+
 export default Results;

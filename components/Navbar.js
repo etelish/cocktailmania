@@ -1,14 +1,14 @@
-import { React, useContext } from 'react';
+import React from 'react';
 import 'firebase/auth';
 import firebase from 'firebase';
 
 import Link from 'next/link';
-import { UserContext } from '../lib/user-context';
+import useUser from '../lib/use-user';
 
 import styles from '../styles/Navbar.module.css';
 
 function Navbar() {
-    const user = useContext(UserContext);
+    const user = useUser();
 
     return (
         <nav className={styles.navbar}>
@@ -38,21 +38,25 @@ function Navbar() {
                             </Link>
                         </li>
 
-                        <li
-                            onClick={() => {
-                                firebase
-                                    .auth()
-                                    .signOut()
-                                    .then(() => {
-                                        // Sign-out successful.
-                                    })
-                                    .catch((error) => {
-                                        // An error happened.
-                                    });
-                            }}>
-                            <Link href="/">
-                                <a>logout</a>
-                            </Link>
+                        <li>
+                            <button
+                                className={styles.logout}
+                                type="button"
+                                onClick={() => {
+                                    firebase
+                                        .auth()
+                                        .signOut()
+                                        .then(() => {
+                                            // Sign-out successful.
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        });
+                                }}>
+                                <Link href="/">
+                                    <a>logout</a>
+                                </Link>
+                            </button>
                         </li>
                     </ul>
                 </div>

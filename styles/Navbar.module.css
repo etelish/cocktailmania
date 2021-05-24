@@ -58,3 +58,9 @@
         background-color: #021e39;
     }
 }
+
+.logout {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+}

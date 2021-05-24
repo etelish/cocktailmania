@@ -1,13 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase';
-import { UserContext } from '../lib/user-context';
+import useUser from '../lib/use-user';
 
 function PageSignUp() {
     const router = useRouter();
     const [email, setEmail] = useState(0);
     const [password, setPassword] = useState(0);
-    const user = useContext(UserContext);
+    const user = useUser();
 
     useEffect(() => {
         if (user?.loggedIn && user !== undefined) {

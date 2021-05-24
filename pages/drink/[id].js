@@ -1,9 +1,10 @@
-import { React, useEffect, useState, useContext } from 'react';
+import { React, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import FaveButton from '../../components/FaveButton';
 import styles from '../../styles/Drink.module.css';
 
-import { UserContext } from '../../lib/user-context';
+import useUser from '../../lib/use-user';
 
 export async function getServerSideProps({ params }) {
     const res = await fetch(
@@ -20,7 +21,7 @@ export async function getServerSideProps({ params }) {
 
 function Drink({ results }) {
     const [value, setValue] = useState();
-    const user = useContext(UserContext);
+    const user = useUser();
 
     useEffect(() => {
         setValue(sessionStorage.getItem('drink') || '');
@@ -29,7 +30,7 @@ function Drink({ results }) {
     const {
         strDrink,
         strDrinkCategory,
-        strAlcohiolic,
+        strAlcoholic,
         strGlass,
         strInstructions,
         strIngredient1,
@@ -55,7 +56,7 @@ function Drink({ results }) {
                         </li>
                         <li>
                             <strong>Alcoholic:</strong>
-                            {strAlcohiolic}
+                            {strAlcoholic}
                         </li>
                     </ul>
                 </div>
@@ -68,4 +69,21 @@ function Drink({ results }) {
         </div>
     );
 }
+
+Drink.propTypes = {
+    results: PropTypes.shape({
+        drinks: PropTypes.arrayOf(
+            PropTypes.shape({
+                strDrink: PropTypes.string,
+                strDrinkCategory: PropTypes.string,
+                strAlcoholic: PropTypes.string,
+                strGlass: PropTypes.string,
+                strInstructions: PropTypes.string,
+                strIngredient1: PropTypes.string,
+                strDrinkThumb: PropTypes.string,
+                idDrink: PropTypes.string,
+            }),
+        ),
+    }).isRequired,
+};
 export default Drink;

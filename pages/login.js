@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase';
 import Link from 'next/link';
 
-import { UserContext } from '../lib/user-context';
+import useUser from '../lib/use-user';
 
 function PageLogin() {
     const router = useRouter();
     const [email, setEmail] = useState(0);
     const [password, setPassword] = useState(0);
-    const user = useContext(UserContext);
+    const user = useUser();
 
     useEffect(() => {
         if (user?.loggedIn && user !== undefined) {
             router.push('./');
         }
-    }, [user]);
+    }, [user, router]);
 
     return (
         <div>
@@ -25,14 +25,10 @@ function PageLogin() {
                     firebase
                         .auth()
                         .signInWithEmailAndPassword(email, password)
-                        .then((userCredential) => {
-                            // Signed in
-                            const user = userCredential.user;
-                        })
                         .catch((error) => {
                             const errorCode = error.code;
                             const errorMessage = error.message;
-                            // ..
+
                             console.log(errorCode);
                             console.log(errorMessage);
                         });
