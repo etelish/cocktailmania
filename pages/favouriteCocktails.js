@@ -21,7 +21,15 @@ function FaveCocktails() {
             .get()
             .then((doc) => {
                 if (doc.exists) {
-                    console.log('Document data:', doc.data());
+                    doc.data().faveCocktails.map(async (drinkId) => {
+                        const res = await fetch(
+                            `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`,
+                        );
+                        const data = await res.json();
+
+                        return console.log(data.drinks[0]);
+                    });
+                    // console.log('Document data:', doc.data());
                 } else {
                     console.log('No such document!');
                 }
