@@ -5,7 +5,6 @@ import Link from 'next/link';
 import styles from '../styles/Search.module.css';
 
 export async function getServerSideProps({ query }) {
-    console.log(`${process.env.HOST}`);
     const response = await fetch(
         `${process.env.HOST}/api/searchDrink?s=${query.q}`,
     );
