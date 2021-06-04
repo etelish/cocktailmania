@@ -27,7 +27,8 @@ function Navbar() {
                         </li>
 
                         <li>
-                            <Link href="/favouriteCocktails">
+                            <Link
+                                href={`/favouriteCocktails?user=${user?.userId}`}>
                                 <a>Fave Cocktails</a>
                             </Link>
                         </li>

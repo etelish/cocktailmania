@@ -4,6 +4,7 @@
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     border-bottom: 1px solid #ddd;
+    position: fixed;
 }
 
 .leftSide {

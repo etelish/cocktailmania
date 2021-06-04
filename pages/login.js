@@ -4,11 +4,12 @@ import firebase from 'firebase';
 import Link from 'next/link';
 
 import useUser from '../lib/use-user';
+import styles from '../styles/Login.module.css';
 
 function PageLogin() {
     const router = useRouter();
-    const [email, setEmail] = useState(0);
-    const [password, setPassword] = useState(0);
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     const user = useUser();
 
     useEffect(() => {
@@ -18,8 +19,9 @@ function PageLogin() {
     }, [user, router]);
 
     return (
-        <div>
+        <div className={styles.container}>
             <form
+                className={styles.loginForm}
                 onSubmit={(event) => {
                     event.preventDefault();
                     firebase
@@ -33,39 +35,41 @@ function PageLogin() {
                             console.log(errorMessage);
                         });
                 }}>
-                <p>
-                    <label htmlFor="email">
-                        Email
-                        <input
-                            type="text"
-                            name="size"
-                            id="email"
-                            value={email}
-                            onChange={(event) => {
-                                setEmail(event.target.value);
-                            }}
-                        />
-                    </label>
-                </p>
-                <p>
-                    <label htmlFor="password">
-                        password
-                        <input
-                            type="password"
-                            name="size"
-                            id="password"
-                            value={password}
-                            onChange={(event) => {
-                                setPassword(event.target.value);
-                            }}
-                        />
-                    </label>
-                </p>
+                <h1>Welcome Back</h1>
+
+                <label htmlFor="email">
+                    <input
+                        className={styles.emailField}
+                        type="text"
+                        name="size"
+                        id="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(event) => {
+                            setEmail(event.target.value);
+                        }}
+                    />
+                </label>
+
+                <label htmlFor="password">
+                    <input
+                        className={styles.passwordField}
+                        type="password"
+                        name="size"
+                        id="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(event) => {
+                            setPassword(event.target.value);
+                        }}
+                    />
+                </label>
+
                 <input type="submit" value="Submit" />
+                <Link href="./signup">
+                    <a className={styles.signUpLink}>click here to sign up</a>
+                </Link>
             </form>
-            <Link href="./signup">
-                <a>click here to sign up</a>
-            </Link>
         </div>
     );
 }

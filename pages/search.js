@@ -5,13 +5,14 @@ import Link from 'next/link';
 import styles from '../styles/Search.module.css';
 
 export async function getServerSideProps({ query }) {
-    const res = await fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query.q}`,
+    const response = await fetch(
+        `${process.env.HOST}/api/searchDrink?s=${query.q}`,
     );
-    const data = await res.json();
+
+    const results = await response.json();
     return {
         props: {
-            results: data,
+            results,
         },
     };
 }
@@ -33,23 +34,27 @@ function Results({ results }) {
                 <p className={styles.description}>For the cocktail lovers</p>
 
                 <ul className={styles.grid}>
-                    {results.drinks.map((drink) => {
-                        const { idDrink, strDrink, strDrinkThumb } = drink;
-                        return (
-                            <li key={idDrink} className={styles.card}>
-                                <img
-                                    className={styles.image}
-                                    src={strDrinkThumb}
-                                    alt={`${strDrink}`}
-                                />
-                                <Link href={`./drink/${idDrink}`}>
-                                    <a>
-                                        <h2>{strDrink}</h2>
-                                    </a>
-                                </Link>
-                            </li>
-                        );
-                    })}
+                    {results.drinks.length < 1 ? (
+                        <h1>Please enter something else</h1>
+                    ) : (
+                        results.drinks.map((drink) => {
+                            const { idDrink, strDrink, strDrinkThumb } = drink;
+                            return (
+                                <li key={idDrink} className={styles.card}>
+                                    <img
+                                        className={styles.image}
+                                        src={strDrinkThumb}
+                                        alt={`${strDrink}`}
+                                    />
+                                    <Link href={`./drink/${idDrink}`}>
+                                        <a>
+                                            <h2>{strDrink}</h2>
+                                        </a>
+                                    </Link>
+                                </li>
+                            );
+                        })
+                    )}
                 </ul>
             </main>
         </div>

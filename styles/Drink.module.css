@@ -32,6 +32,9 @@
     align-items: center;
     flex-grow: 1;
 }
+.button {
+    width: 250px;
+}
 
 .title a {
     color: #0070f3;

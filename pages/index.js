@@ -35,6 +35,7 @@ function Search() {
                 <p className={styles.description}>For the cocktail lovers</p>
                 <form className="search" onSubmit={handleOnSubmitSearch}>
                     <input
+                        placeholder="Look up a cocktail"
                         name="query"
                         type="search"
                         value={value}
