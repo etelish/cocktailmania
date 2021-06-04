@@ -46,7 +46,6 @@ function Drink({ results }) {
                 <div className={styles.drinkImage}>
                     <img src={strDrinkThumb} alt={strDrink} />
                 </div>
-                <FaveButton cocktailId={idDrink} userId={user?.userId} />
                 <div className={styles.drinkDetails}>
                     <h2>Cocktail Information</h2>
                     <ul>
@@ -58,14 +57,17 @@ function Drink({ results }) {
                             <strong>Alcoholic:</strong>
                             {strAlcoholic}
                         </li>
+                        <FaveButton
+                            cocktailId={idDrink}
+                            userId={user?.userId}
+                        />
                     </ul>
+                    <Link href={`/search?q=${value}`}>
+                        <a>Back to results</a>
+                    </Link>
                 </div>
             </div>
-            <p>
-                <Link href={`/search?q=${value}`}>
-                    <a>Back to results</a>
-                </Link>
-            </p>
+            <p></p>
         </div>
     );
 }

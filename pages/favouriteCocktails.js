@@ -60,7 +60,7 @@ function FaveCocktails() {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <main className={styles.main}>
                 <h1 className={styles.title}>Cocktailmania</h1>
 

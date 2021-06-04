@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import styles from '../styles/Drink.module.css';
 import 'firebase/auth';
+import FaveButton from '../components/FaveButton';
 
 import useUser from '../lib/use-user';
 
@@ -58,6 +59,10 @@ function RandomDrink({ results }) {
                             <strong>Alcoholic:</strong>
                             {strAlcoholic}
                         </li>
+                        <FaveButton
+                            cocktailId={idDrink}
+                            userId={user?.userId}
+                        />
                     </ul>
                 </div>
             </div>
