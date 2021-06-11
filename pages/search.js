@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+
 import styles from '../styles/Search.module.css';
 
 export async function getServerSideProps({ query }) {
@@ -22,12 +23,22 @@ function Results({ results }) {
     }, []);
     return (
         <main className={styles.main}>
+            <h2 className={styles.firstTitle}>Cocktail results</h2>
+
             <ul className={styles.grid}>
                 {results.drinks.length < 1 ? (
-                    <h1>Please enter something else</h1>
+                    <h1 className={styles.firstTitle}>
+                        This item doesn't exist enter something else
+                    </h1>
                 ) : (
                     results.drinks.map((drink) => {
-                        const { idDrink, strDrink, strDrinkThumb } = drink;
+                        const {
+                            idDrink,
+                            strDrink,
+                            strDrinkThumb,
+                            strAlcoholic,
+                            strCategory,
+                        } = drink;
                         return (
                             <li key={idDrink} className={styles.card}>
                                 <img
@@ -40,6 +51,10 @@ function Results({ results }) {
                                         <h2>{strDrink}</h2>
                                     </a>
                                 </Link>
+                                <ul className={styles.stats}>
+                                    <li>{strAlcoholic}</li>
+                                    <li>Category: {strCategory}</li>
+                                </ul>
                             </li>
                         );
                     })

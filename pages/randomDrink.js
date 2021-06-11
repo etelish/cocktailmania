@@ -1,6 +1,7 @@
 import { React, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+
 import styles from '../styles/Drink.module.css';
 import 'firebase/auth';
 import FaveButton from '../components/FaveButton';
@@ -40,30 +41,36 @@ function RandomDrink({ results }) {
         strDrinkThumb,
         idDrink,
     } = results.drinks[0];
+    const ingredients = Array(15)
+        .fill(null)
+        .map((_, i) => i + 1)
+        .reduce(
+            (accumulator, number) =>
+                results.drinks[0][`strMeasure${number}`]
+                    ? [
+                          ...accumulator,
+                          results.drinks[0][`strMeasure${number}`] +
+                              ' ' +
+                              results.drinks[0][`strIngredient${number}`],
+                      ]
+                    : accumulator,
+            [],
+        );
     return (
-        <div className={styles.container}>
-            <main className={styles.main} />
-            <h1 className={styles.title}>{strDrink}</h1>
-            <div className={styles.drinkProfile}>
-                <div className={styles.drinkImage}>
-                    <img src={strDrinkThumb} alt={strDrink} />
-                </div>
-                <div className={styles.drinkDetails}>
-                    <h2>Cocktail Information</h2>
-                    <ul>
-                        <li>
-                            <strong>Cocktail:</strong>
-                            {strDrink}
-                        </li>
-                        <li>
-                            <strong>Alcoholic:</strong>
-                            {strAlcoholic}
-                        </li>
-                        <FaveButton
-                            cocktailId={idDrink}
-                            userId={user?.userId}
-                        />
-                    </ul>
+        <div className={styles.drinkProfile}>
+            <div className={styles.backgroundContainer}>
+                <img
+                    className={styles.drinkImage}
+                    src={strDrinkThumb}
+                    alt={strDrink}
+                />
+                <div className={styles.drinkText}>
+                    <h1 className={styles.title}>{strDrink}</h1>
+                    <p>{strAlcoholic}</p>
+                    {ingredients.map((ingredient) => (
+                        <p>{ingredient}</p>
+                    ))}
+                    <FaveButton cocktailId={idDrink} userId={user?.userId} />
                 </div>
             </div>
         </div>

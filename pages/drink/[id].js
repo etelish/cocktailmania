@@ -59,32 +59,35 @@ function Drink({ results }) {
 
     return (
         <div className={styles.drinkProfile}>
-            <img
-                className={styles.drinkImage}
-                src={strDrinkThumb}
-                alt={strDrink}
-            />
-            <div className={styles.drinkText}>
-                <h1 className={styles.title}>{strDrink}</h1>
-                <p>{strAlcoholic}</p>
-                {ingredients.map((ingredient) => (
-                    <p>{ingredient}</p>
-                ))}
-                <FaveButton cocktailId={idDrink} userId={user?.userId} />
+            <div className={styles.backgroundContainer}>
+                <img
+                    className={styles.drinkImage}
+                    src={strDrinkThumb}
+                    alt={strDrink}
+                />
+                <div className={styles.drinkText}>
+                    <h1 className={styles.title}>{strDrink}</h1>
+                    <h3>Ingredients</h3>
+                    {ingredients.map((ingredient) => (
+                        <p>{ingredient}</p>
+                    ))}
 
-                {source === 'search' ? (
-                    <button className={styles.buttonStyle} type="button">
-                        <Link href={`/search?q=${drink}`}>
-                            <a>Back to search results</a>
-                        </Link>
-                    </button>
-                ) : (
-                    <button className={styles.buttonStyle} type="button">
-                        <Link href="/favouriteCocktails">
-                            <a>Back to Fave Cocktails</a>
-                        </Link>
-                    </button>
-                )}
+                    <FaveButton cocktailId={idDrink} userId={user?.userId} />
+
+                    {source === 'search' ? (
+                        <button className={styles.buttonStyle} type="button">
+                            <Link href={`/search?q=${drink}`}>
+                                <a>Back to search results</a>
+                            </Link>
+                        </button>
+                    ) : (
+                        <button className={styles.buttonStyle} type="button">
+                            <Link href="/favouriteCocktails">
+                                <a>Back to Fave Cocktails</a>
+                            </Link>
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     );
