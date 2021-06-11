@@ -8,7 +8,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 14px;
+
+    /* background-image: linear-gradient(
+        to right,
+        rgba(255, 0, 0, 0.3),
+        rgb(204, 111, 105)
+    ); */
 }
+
 .logo {
     font-size: 22px;
 }

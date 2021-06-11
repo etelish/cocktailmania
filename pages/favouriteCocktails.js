@@ -65,12 +65,20 @@ function FaveCocktails() {
 
     return (
         <main className={styles.main}>
+            <h2 className={styles.firstTitle}>You're favourite cocktails</h2>
+
             <ul className={styles.grid}>
                 {faveDrink.drinks.length < 1 ? (
                     <h1>Please enter something else</h1>
                 ) : (
                     faveDrink.drinks.map((drink) => {
-                        const { idDrink, strDrink, strDrinkThumb } = drink;
+                        const {
+                            idDrink,
+                            strDrink,
+                            strDrinkThumb,
+                            strAlcoholic,
+                            strCategory,
+                        } = drink;
                         return (
                             <li key={idDrink} className={styles.card}>
                                 <img
@@ -83,6 +91,10 @@ function FaveCocktails() {
                                         <h2>{strDrink}</h2>
                                     </a>
                                 </Link>
+                                <ul className={styles.stats}>
+                                    <li>{strAlcoholic}</li>
+                                    <li>{strCategory}</li>
+                                </ul>
                             </li>
                         );
                     })
