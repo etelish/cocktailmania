@@ -41,6 +41,10 @@ function FaveCocktails() {
         }
     }, [user, db]);
 
+    useEffect(() => {
+        sessionStorage.setItem('source', 'favouriteCocktails');
+    }, []);
+
     console.log(faveDrink);
 
     if (!faveDrink) {
@@ -60,37 +64,31 @@ function FaveCocktails() {
     }
 
     return (
-        <div className={styles.container}>
-            <main className={styles.main}>
-                <h1 className={styles.title}>Cocktailmania</h1>
-
-                <p className={styles.description}>For the cocktail lovers</p>
-
-                <ul className={styles.grid}>
-                    {faveDrink.drinks.length < 1 ? (
-                        <h1>Please enter something else</h1>
-                    ) : (
-                        faveDrink.drinks.map((drink) => {
-                            const { idDrink, strDrink, strDrinkThumb } = drink;
-                            return (
-                                <li key={idDrink} className={styles.card}>
-                                    <img
-                                        className={styles.image}
-                                        src={strDrinkThumb}
-                                        alt={`${strDrink}`}
-                                    />
-                                    <Link href={`./drink/${idDrink}`}>
-                                        <a>
-                                            <h2>{strDrink}</h2>
-                                        </a>
-                                    </Link>
-                                </li>
-                            );
-                        })
-                    )}
-                </ul>
-            </main>
-        </div>
+        <main className={styles.main}>
+            <ul className={styles.grid}>
+                {faveDrink.drinks.length < 1 ? (
+                    <h1>Please enter something else</h1>
+                ) : (
+                    faveDrink.drinks.map((drink) => {
+                        const { idDrink, strDrink, strDrinkThumb } = drink;
+                        return (
+                            <li key={idDrink} className={styles.card}>
+                                <img
+                                    className={styles.image}
+                                    src={strDrinkThumb}
+                                    alt={`${strDrink}`}
+                                />
+                                <Link href={`./drink/${idDrink}`}>
+                                    <a>
+                                        <h2>{strDrink}</h2>
+                                    </a>
+                                </Link>
+                            </li>
+                        );
+                    })
+                )}
+            </ul>
+        </main>
     );
 }
 

@@ -4,18 +4,52 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-image: url(../public/drink-cocktails-alcohol-drinking-glass-wallpaper-preview.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: inset 0 0 0 2000px rgba(62, 69, 81, 0.7);
 }
+
 .loginForm {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.signUpLink {
+.buttonStyle {
+    width: 250px;
+    margin: 5px;
+    display: inline-block;
+    padding: 0.3em 1.2em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #ffffff;
+    background-color: rgb(204, 111, 105);
+
+    text-align: center;
+    transition: all 0.2s;
+    width: 65%;
 }
 .emailField {
     margin-bottom: 5px;
 }
 .passwordField {
     margin-bottom: 12px;
+}
+.title {
+    color: white;
+    margin-bottom: 20px;
+    line-height: 1.15;
+    font-size: 4rem;
+}
+.signUpLink {
+    color: white;
+}
+.signUpTitle {
+    color: white;
 }

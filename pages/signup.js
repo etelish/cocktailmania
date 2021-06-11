@@ -35,7 +35,7 @@ function PageSignUp() {
                             console.log(errorMessage);
                         });
                 }}>
-                <h1>Sign up to get started</h1>
+                <h1 className={styles.signUpTitle}>Sign up to get started</h1>
                 <label htmlFor="email">
                     <input
                         className={styles.emailField}
@@ -62,7 +62,11 @@ function PageSignUp() {
                         }}
                     />
                 </label>
-                <input type="submit" value="Sign Up" />
+                <input
+                    className={styles.buttonStyle}
+                    type="submit"
+                    value="Sign Up"
+                />
                 Already registered?
                 <Link href="./login">
                     <a className={styles.signUpLink}>Click here to login</a>
