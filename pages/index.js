@@ -33,8 +33,9 @@ function Search() {
             <main className={styles.main}>
                 <h1 className={styles.title}>Cocktailmania</h1>
                 <p className={styles.description}>For the cocktail lovers</p>
-                <form className="search" onSubmit={handleOnSubmitSearch}>
+                <form className={styles.search} onSubmit={handleOnSubmitSearch}>
                     <input
+                        className={styles.searchbar}
                         placeholder="Look up a cocktail"
                         name="query"
                         type="search"
@@ -43,7 +44,9 @@ function Search() {
                             setValue(event.target.value);
                         }}
                     />
-                    <button type="submit">Search</button>
+                    <button className={styles.buttonStyle} type="submit">
+                        Search
+                    </button>
                 </form>
             </main>
         </div>

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import 'firebase/firestore';
 import firebase from 'firebase';
 
+import styles from '../styles/Button.module.css';
+
 function FaveButton({ userId, cocktailId }) {
     const db = firebase.firestore();
 
@@ -25,7 +27,10 @@ function FaveButton({ userId, cocktailId }) {
     };
 
     return (
-        <button type="submit" onClick={saveCocktail}>
+        <button
+            className={styles.buttonStyle}
+            type="submit"
+            onClick={saveCocktail}>
             Add to fave list
         </button>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import 'firebase/auth';
 import firebase from 'firebase';
+import Image from 'next/image';
 
 import Link from 'next/link';
 import useUser from '../lib/use-user';
@@ -12,55 +13,55 @@ function Navbar() {
 
     return (
         <nav className={styles.navbar}>
-            <div className={styles.leftSide}>
-                <div className={styles.navbarLogo}>
-                    <h1>Cocktailmania</h1>
-                </div>
-            </div>
+            <Link href="/">
+                <a className={styles.logo}>Cocktailmania</a>
+            </Link>
+            {/* <img
+                className={styles.cocktail_logo}
+                src="cocktailmania_logo.png"
+                alt="cocktailmania logo"
+            /> */}
             {user?.loggedIn && (
-                <div className={styles.rightSide}>
-                    <ul className={styles.links}>
-                        <li>
+                <ul className={styles.links}>
+                    <li>
+                        <Link href="/">
+                            <a>Cocktail Search</a>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link href="/favouriteCocktails">
+                            <a>Fave Cocktails</a>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link href="/randomDrink">
+                            <a>Cocktail Roulette</a>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <button
+                            className={styles.logout}
+                            type="button"
+                            onClick={() => {
+                                firebase
+                                    .auth()
+                                    .signOut()
+                                    .then(() => {
+                                        // Sign-out successful.
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                    });
+                            }}>
                             <Link href="/">
-                                <a>Cocktail search</a>
+                                <a>Logout</a>
                             </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                href={`/favouriteCocktails?user=${user?.userId}`}>
-                                <a>Fave Cocktails</a>
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link href="/randomDrink">
-                                <a>Cocktail roulette</a>
-                            </Link>
-                        </li>
-
-                        <li>
-                            <button
-                                className={styles.logout}
-                                type="button"
-                                onClick={() => {
-                                    firebase
-                                        .auth()
-                                        .signOut()
-                                        .then(() => {
-                                            // Sign-out successful.
-                                        })
-                                        .catch((error) => {
-                                            console.log(error);
-                                        });
-                                }}>
-                                <Link href="/">
-                                    <a>logout</a>
-                                </Link>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+                        </button>
+                    </li>
+                </ul>
             )}
         </nav>
     );
